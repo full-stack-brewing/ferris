@@ -1,0 +1,21 @@
+<head>
+</head>
+<body>
+  <span class="fridge temp">Refridgerator temperature: <span id="fridge_temp"></span></span>
+  <br>
+  <span class="fridge temp">Refridgerator temperature: <span id="freezer_temp"></span></span>
+  <br>
+  <span class="controller state">Controller state: <span id="controller_state"></span></span>
+
+  <script type="text/Javascript">
+    erpc("get_fridge_temp",null,function (temp) {
+      fridge_temp.innerText = temp.tostring();
+    });
+    erpc("get_freezer_temp",null,function (temp) {
+      freezer_temp.innerText = temp.tostring();
+    });
+    erpc("get_controller_state",null,function (state) {
+      controller_state.innerText = state;
+    });
+  </script>
+</body>
