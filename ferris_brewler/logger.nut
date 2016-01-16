@@ -1,14 +1,10 @@
-function log_state()
-{
+function log_state() {
   //log the temperature sensor states
   fridge_temp <- ds18b20_fridge.readT();
   write_data(fridge_temp,"fridge");
   freezer_temp <- ds18b20_freezer.readT();
   write_data(freezer_temp,"freezer");
-  //log the compressor status
-  write_data(::compressor_state,"compressor");
-  //log the controller status
-  write_data(::controller_state,"controller");
+  write_data(::compressor_state,"controller");
 }
 
 function write_data(sample,sensor) {
@@ -17,3 +13,8 @@ function write_data(sample,sensor) {
   datafile.writestr(s);
   datafile.close();
 }
+
+//attach a timer to begin logging data
+local log_period = 30*1000;
+local log_timer = Timer(log_state);
+log_timer.interval(log_period);
