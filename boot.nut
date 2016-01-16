@@ -24,7 +24,7 @@
 print("Loading libraries");
 dofile("sd:/lib/sensors/ds18b20/ds18b20.nut");
 dofile("sd:/lib/buses/onewire/onewire.nut");
-print("Libraries loaded, initializing sensor");
+print("Libraries loaded, initializing sensors");
 
 //initialize the sensors
 /* Create a _onewire instance on UART1 */
@@ -44,9 +44,12 @@ if (!rom2)
    throw("Freezer DS18B20 not found");
 /* Create the DS18B20 instance */
 ds18b20_freezer <- DS18B20(onewire2, rom2);
+print("Sensors initialized, loading controller");
 
 //run the controller nut
-dofile("sd:/ferris_brewler/temp_record.nut");
+dofile("sd:/ferris_brewler/controller.nut");
+//run the data logger nut
+dofile("sd:/ferris_brewler/logger.nut");
 
 // Configure the GPIO as a digital output
 
@@ -62,10 +65,6 @@ function blinky()
     }
 }
 led.high();
-
-while (true)
-{
-}
 
 ///////////////////////////////////////////////////////////////////////////////
 // Run an Arduino-style application
